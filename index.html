@@ -431,7 +431,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 social-widget">
                             <div class="single-footer-widget">
-                                <h4>Follow Me</h4>
+                                <h4 id="followme">Follow Me</h4>
                                 <p>Let's be social</p>
                                 <div class="footer-social d-flex align-items-center">
                                     <a href="https://twitter.com/DwayneSamuels" rel="follow" alt="Follow Dwayne's Twitter"><i class="fa fa-twitter"></i></a>
@@ -465,6 +465,43 @@
 			<script src="js/simple-skillbar.js"></script>							
 			<script src="js/owl.carousel.min.js"></script>							
 			<script src="js/mail-script.js"></script>	
-			<script src="js/main.js"></script>	
+			<script src="js/main.js"></script>
+			<script  src="https://unpkg.com/@samelogic/samelogic-js@0.0.8/dist/samelogic.min.js"></script><script>
+    const showSurveyWorkflowConfig = {
+      triggers: [{
+        input:{
+            events: [{
+                type: 'click',
+                selector: '#followme'
+            }]
+        }
+      }],
+      steps: [
+        {
+          uses: 'https://unpkg.com/@samelogic/micro-survey@0.1.8/dist/index.js',
+          input: {
+          	cssSelector: '#followme',
+            form: {
+            	title: "We're running an experiment to see if this is worth building!",
+            	fields: [
+ {
+  "title": "Test",
+  "type": "long_text",
+  "properties": {
+   "description": "test"
+  }
+ }
+]
+            },
+            postUrl: 'https://hooks.zapier.com/hooks/catch/2140814/opekzio'
+          }
+        }]
+    }
+    const options = {
+      workflows: [showSurveyWorkflowConfig]
+    }
+    const samelogic = new Samelogic(options);
+    samelogic.init().then(() => {console.log('initialized')})
+</script>
 		</body>
 	</html>
